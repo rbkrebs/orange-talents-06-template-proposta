@@ -3,6 +3,7 @@ package br.com.zupacademy.romulo.proposta.proposta;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,11 +19,11 @@ public class PropostaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaDto propostaDto){
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaDto propostaDto, UriComponentsBuilder uriComponentsBuilder){
 
-        propostaDto.salvar(propostaDto, entityManager);
+        Long id = propostaDto.salvar(propostaDto, entityManager);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(uriComponentsBuilder.path("/propostas/{id}").buildAndExpand(id).toUri()).build();
     }
 
 }

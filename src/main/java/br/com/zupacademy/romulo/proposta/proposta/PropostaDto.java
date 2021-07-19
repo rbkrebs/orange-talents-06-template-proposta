@@ -1,9 +1,6 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
 import br.com.zupacademy.romulo.proposta.validadores.ValidaDocumento;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -42,7 +39,7 @@ public class PropostaDto {
         this.salario = salario;
     }
 
-    public void salvar(PropostaDto propostaDto, EntityManager entityManager) {
+    public Long salvar(PropostaDto propostaDto, EntityManager entityManager) {
 
         Proposta proposta = new Proposta(
                 propostaDto.documento,
@@ -54,9 +51,7 @@ public class PropostaDto {
 
         entityManager.persist(proposta);
 
-
-
-
+        return proposta.getId();
 
     }
 }

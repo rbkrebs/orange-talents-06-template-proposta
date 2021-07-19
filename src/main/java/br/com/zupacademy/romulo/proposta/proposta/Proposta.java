@@ -31,4 +31,8 @@ public class Proposta {
         this.endereco = endereco;
         this.salario = salario;
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }
