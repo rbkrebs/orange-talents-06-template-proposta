@@ -41,7 +41,17 @@ public class PropostaDto {
         this.salario = salario;
     }
 
-    public Long salvar(PropostaDto propostaDto, EntityManager entityManager) {
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+
+
+    public Proposta toModel(PropostaDto propostaDto) {
 
         Proposta proposta = new Proposta(
                 propostaDto.documento,
@@ -51,9 +61,6 @@ public class PropostaDto {
                 propostaDto.salario
         );
 
-        entityManager.persist(proposta);
-
-        return proposta.getId();
-
+        return proposta;
     }
 }

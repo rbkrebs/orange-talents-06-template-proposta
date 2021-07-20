@@ -1,5 +1,7 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
+import br.com.zupacademy.romulo.proposta.clients.solicitacao.CondicaoSolicitacao;
+
 import javax.persistence.*;
 import javax.sound.sampled.Port;
 import javax.validation.constraints.Email;
@@ -34,6 +36,9 @@ public class Proposta {
     @Column(nullable = false)
     private BigDecimal salario;
 
+    @Enumerated(EnumType.STRING)
+    private CondicaoSolicitacao condicaoSolicitacao;
+
     @Deprecated
     public Proposta() {
     }
@@ -54,5 +59,9 @@ public class Proposta {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setCondicaoSolicitacao(CondicaoSolicitacao condicaoSolicitacao) {
+        this.condicaoSolicitacao = condicaoSolicitacao;
     }
 }

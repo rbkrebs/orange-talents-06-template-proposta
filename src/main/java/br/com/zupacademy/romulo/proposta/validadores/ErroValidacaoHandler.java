@@ -41,13 +41,13 @@ public class ErroValidacaoHandler {
 
     }
 
-    @ExceptionHandler(ApiErroException.class)
+    @ExceptionHandler({ApiErroException.class})
     public ResponseEntity<ErroPadronizado> handleApiErroException(ApiErroException apiErroException) {
         Collection<String> mensagensErros = new ArrayList<>();
         mensagensErros.add(apiErroException.getReason());
 
         ErroPadronizado erroPadronizado = new ErroPadronizado(mensagensErros);
-        
+
         return ResponseEntity.status(apiErroException.getHttpStatus()).body(erroPadronizado);
     }
 }
