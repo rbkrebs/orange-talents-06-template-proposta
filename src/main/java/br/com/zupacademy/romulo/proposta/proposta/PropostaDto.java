@@ -1,5 +1,6 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
+import br.com.zupacademy.romulo.proposta.validadores.ExisteRegistro;
 import br.com.zupacademy.romulo.proposta.validadores.ValidaDocumento;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 public class PropostaDto {
 
     @ValidaDocumento
+    @ExisteRegistro(entidade = "Proposta", atributo = "documento")
     private String documento;
 
     @Email

@@ -1,9 +1,11 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.sound.sampled.Port;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,14 +17,32 @@ public class Proposta {
     private Long id;
 
 
-    private final String documento;
-    private final String email;
-    private final String nome;
-    private final String endereco;
-    private final BigDecimal salario;
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    private String documento;
+    @Email
+    @Column(nullable = false)
+    private String email;
+    @NotBlank
+    @Column(nullable = false)
+    private String nome;
+    @NotBlank
+    @Column(nullable = false)
+    private String endereco;
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
+    private BigDecimal salario;
 
+    @Deprecated
+    public Proposta() {
+    }
 
-    public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
+    public Proposta(@NotBlank String documento,
+                    @Email String email,
+                    @NotBlank String nome,
+                    @NotBlank String endereco,
+                    @NotNull @Min(0) BigDecimal salario) {
 
 
         this.documento = documento;
