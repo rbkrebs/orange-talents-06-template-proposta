@@ -36,6 +36,8 @@ public class Proposta {
     @Column(nullable = false)
     private BigDecimal salario;
 
+    private String numeroDoCartao;
+
     @Enumerated(EnumType.STRING)
     private CondicaoSolicitacao condicaoSolicitacao;
 
@@ -63,5 +65,9 @@ public class Proposta {
 
     public void setCondicaoSolicitacao(CondicaoSolicitacao condicaoSolicitacao) {
         this.condicaoSolicitacao = condicaoSolicitacao;
+    }
+
+    public void setNumeroDoCartao(String numeroDoCartao) {
+        this.numeroDoCartao = numeroDoCartao;
     }
 }

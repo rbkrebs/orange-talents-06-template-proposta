@@ -1,7 +1,5 @@
 package br.com.zupacademy.romulo.proposta.clients.solicitacao;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 public class SolicitacaoRequest {
 
     private String documento;

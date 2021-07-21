@@ -1,10 +1,7 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
 
-import br.com.zupacademy.romulo.proposta.clients.solicitacao.CondicaoSolicitacao;
-import br.com.zupacademy.romulo.proposta.clients.solicitacao.DadosFinanceiros;
-import br.com.zupacademy.romulo.proposta.clients.solicitacao.SolicitacaoRequest;
-import br.com.zupacademy.romulo.proposta.clients.solicitacao.SolicitacaoResponse;
+import br.com.zupacademy.romulo.proposta.clients.solicitacao.*;
 import br.com.zupacademy.romulo.proposta.validadores.ApiErroException;
 import com.google.gson.Gson;
 import feign.Feign;
@@ -34,6 +31,8 @@ public class PropostaController {
     @Autowired
     DadosFinanceiros dadosFinanceiros;
 
+    @Autowired
+    AvaliaSolicitacao avaliaSolicitacao;
 
     @PostMapping
     @Transactional
@@ -44,16 +43,9 @@ public class PropostaController {
 
         SolicitacaoRequest solicitacaoRequest = new SolicitacaoRequest(propostaDto.getDocumento(),
                 propostaDto.getNome(), proposta.getId());
-        try{
-            SolicitacaoResponse solicitacaoResponse = dadosFinanceiros.verificar(solicitacaoRequest);
-            proposta.setCondicaoSolicitacao(solicitacaoResponse.getResultadoSolicitacao());
-            entityManager.merge(proposta);
-        }catch (FeignException exception){
-            proposta.setCondicaoSolicitacao(CondicaoSolicitacao.NAO_ELEGIVEL);
-            entityManager.merge(proposta);
 
-            //throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,"Cliente não elegível");
-        }
+        avaliaSolicitacao.verificaDados(dadosFinanceiros, entityManager,proposta, solicitacaoRequest);
+
         return ResponseEntity.created(uriComponentsBuilder.path("/propostas/{id}").buildAndExpand(proposta.getId()).toUri()).build();
     }
 
