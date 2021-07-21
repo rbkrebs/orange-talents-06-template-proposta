@@ -49,8 +49,6 @@ public class PropostaDto {
         return nome;
     }
 
-
-
     public Proposta toModel(PropostaDto propostaDto) {
 
         Proposta proposta = new Proposta(

@@ -1,6 +1,7 @@
 package br.com.zupacademy.romulo.proposta.proposta;
 
 import br.com.zupacademy.romulo.proposta.clients.solicitacao.CondicaoSolicitacao;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import javax.persistence.*;
 import javax.sound.sampled.Port;
@@ -63,6 +64,34 @@ public class Proposta {
         return this.id;
     }
 
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public String getNumeroDoCartao() {
+        return numeroDoCartao;
+    }
+
+    public CondicaoSolicitacao getCondicaoSolicitacao() {
+        return condicaoSolicitacao;
+    }
+
     public void setCondicaoSolicitacao(CondicaoSolicitacao condicaoSolicitacao) {
         this.condicaoSolicitacao = condicaoSolicitacao;
     }
@@ -70,4 +99,20 @@ public class Proposta {
     public void setNumeroDoCartao(String numeroDoCartao) {
         this.numeroDoCartao = numeroDoCartao;
     }
+
+    @Override
+    public String toString() {
+        return "Proposta{" +
+                "id=" + id +
+                ", documento='" + documento + '\'' +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", salario=" + salario +
+                ", numeroDoCartao='" + numeroDoCartao + '\'' +
+                ", condicaoSolicitacao=" + condicaoSolicitacao +
+                '}';
+    }
+
+
 }
