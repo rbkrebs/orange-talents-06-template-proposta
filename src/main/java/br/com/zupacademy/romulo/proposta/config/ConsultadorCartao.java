@@ -31,7 +31,7 @@ public class ConsultadorCartao {
     @Scheduled(fixedDelayString = "${periodicidade-consulta-cartoes}")
     public void consularCartoes() {
 
-        logger.info("Consultando cartões ");
+        logger.info("Consultando cartões agora");
 
         List<Proposta> listaDePropostas = propostaRepository.findByCondicaoSolicitacaoAndNumeroDoCartao(CondicaoSolicitacao.ELEGIVEL,null);
 
@@ -43,7 +43,7 @@ public class ConsultadorCartao {
                 propostaRepository.save(proposta);
                 logger.info("Cartão {} associado à proposta {}",consulta.getId(), proposta.getId());
             }catch (FeignException e){
-                logger.warn("Proposta {} ainda n]ao possui cartão associado", proposta.getId());
+                logger.warn("Proposta {} ainda não possui cartão associado", proposta.getId());
             }
 
 

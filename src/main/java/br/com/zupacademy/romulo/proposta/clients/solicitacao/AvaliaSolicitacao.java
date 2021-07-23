@@ -25,6 +25,7 @@ public class AvaliaSolicitacao {
         }catch (FeignException exception){
             proposta.setCondicaoSolicitacao(CondicaoSolicitacao.NAO_ELEGIVEL);
             entityManager.merge(proposta);
+            logger.warn("Exceção: {}",exception);
             logger.info("Proposta com cliente não elegível ");
             //throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,"Cliente não elegível");
         }
