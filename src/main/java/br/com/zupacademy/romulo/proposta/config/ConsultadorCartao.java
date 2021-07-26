@@ -35,14 +35,18 @@ public class ConsultadorCartao {
 
         List<Proposta> listaDePropostas = propostaRepository.findByCondicaoSolicitacaoAndNumeroDoCartao(CondicaoSolicitacao.ELEGIVEL,null);
 
+
+
         listaDePropostas.forEach(proposta ->{
             String idProposta = String.valueOf(proposta.getId());
             try{
+
                 ConsultaCartaoResponse consulta = consultaCartao.consularCartao(new ConsultaCartaoRequest(idProposta));
                 proposta.setNumeroDoCartao(consulta.getId());
                 propostaRepository.save(proposta);
-                logger.info("Cartão {} associado à proposta {}",consulta.getId(), proposta.getId());
+
             }catch (FeignException e){
+
                 logger.warn("Proposta {} ainda não possui cartão associado", proposta.getId());
             }
 

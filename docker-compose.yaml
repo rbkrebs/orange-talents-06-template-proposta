@@ -62,11 +62,34 @@ services:
       KEYCLOAK_PASSWORD: Pa55w0rd
       POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
 
+  db_proposta:
+    image: mysql:latest
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: proposta
+      MYSQL_USER: romulo
+      MYSQL_PASSWORD: romulo
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+      - 3306
+    networks:
+      - proposta-net
+
   proposta:
     image: 'romulo/proposta'
     ports:
       - 8080:8080
+    depends_on:
+      - db_proposta
     environment:
+      MYSQL_PASSWORD: romulo
+      MYSQL_USER: romulo
+      MYSQL_URL: jdbc:mysql://db_proposta:3306/proposta
       API_CONTAS: http://contas:8888/api/cartoes
       API_ANALISE: http://analise:9999/api/solicitacao
     networks:
@@ -152,6 +175,8 @@ volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
+  mysql-volume:
+
 
 networks:
   proposta-net:
