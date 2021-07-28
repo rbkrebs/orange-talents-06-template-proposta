@@ -19,7 +19,10 @@ br/com/zupacademy/romulo/proposta/validadores/VerificaBase64.class
 br/com/zupacademy/romulo/proposta/config/ConsultadorCartao.class
 br/com/zupacademy/romulo/proposta/clients/solicitacao/SolicitacaoRequest.class
 br/com/zupacademy/romulo/proposta/clients/solicitacao/SolicitacaoResponse.class
+br/com/zupacademy/romulo/proposta/bloqueio/BloqueioController.class
 br/com/zupacademy/romulo/proposta/config/SecurityConfiguration.class
+br/com/zupacademy/romulo/proposta/bloqueio/Bloqueio.class
+br/com/zupacademy/romulo/proposta/bloqueio/BloqueioDto.class
 br/com/zupacademy/romulo/proposta/validadores/ValidaBase64.class
 br/com/zupacademy/romulo/proposta/biometria/BiometriaController.class
 br/com/zupacademy/romulo/proposta/validadores/ErroPadronizado.class

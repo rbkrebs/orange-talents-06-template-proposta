@@ -1,6 +1,7 @@
 package br.com.zupacademy.romulo.proposta.validadores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -30,7 +31,10 @@ public class ValidadorGenerico implements ConstraintValidator<ValorUnico, String
 
         Query query = em.createQuery("SELECT s FROM "+this.tabela+" s where "+this.atributo+"=:s").setParameter("s", s);
 
-        return query.getResultList().isEmpty();
+        if(!query.getResultList().isEmpty()){
+            throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Valor já cadastrado");
+        }
+        return true;
 
 
     }
