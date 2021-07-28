@@ -28,6 +28,8 @@ services:
       - postgres-volume:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    networks:
+      - proposta-net
     environment:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: password
@@ -40,6 +42,8 @@ services:
       - 18443:8443
       - 18080:8080
       - 19990:9990
+    networks:
+      - proposta-net
     depends_on:
       # Just a delay to wait for postgres! This is not recommended!
       - grafana
@@ -83,15 +87,18 @@ services:
   proposta:
     image: 'romulo/proposta'
     ports:
-      - 8080:8080
+      - 8081:8080
     depends_on:
       - db_proposta
+      - keycloak
     environment:
       MYSQL_PASSWORD: romulo
       MYSQL_USER: romulo
       MYSQL_URL: jdbc:mysql://db_proposta:3306/proposta
       API_CONTAS: http://contas:8888/api/cartoes
       API_ANALISE: http://analise:9999/api/solicitacao
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/auth/realms/proposta
+      KEYCLOAK_JWKS_URI: http://keycloak:8080/auth/realms/proposta/protocol/openid-connect/certs
     networks:
       - proposta-net
 

@@ -8,6 +8,7 @@
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/proposta/PropostaDto.java
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/proposta/PropostaController.java
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/proposta/PropostaRepository.java
+/home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/config/SecurityConfiguration.java
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/biometria/Biometria.java
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/clients/solicitacao/DadosFinanceiros.java
 /home/romulokrebs/Documentos/OrangeTalentsForms/proposta/src/main/java/br/com/zupacademy/romulo/proposta/validadores/ValorUnico.java
