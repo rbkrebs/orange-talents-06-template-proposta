@@ -2,6 +2,7 @@ br/com/zupacademy/romulo/proposta/clients/solicitacao/AvaliaSolicitacao.class
 br/com/zupacademy/romulo/proposta/clients/cartao/ConsultaCartaoResponse.class
 br/com/zupacademy/romulo/proposta/clients/solicitacao/CondicaoSolicitacao.class
 br/com/zupacademy/romulo/proposta/clients/cartao/ConsultaCartaoRequest.class
+br/com/zupacademy/romulo/proposta/clients/bloqueiaCartao/BloqueiaCartao.class
 br/com/zupacademy/romulo/proposta/validadores/ErroValidacaoHandler.class
 br/com/zupacademy/romulo/proposta/validadores/ValidaDocumento.class
 br/com/zupacademy/romulo/proposta/validadores/ValorUnico.class
@@ -21,6 +22,7 @@ br/com/zupacademy/romulo/proposta/clients/solicitacao/SolicitacaoRequest.class
 br/com/zupacademy/romulo/proposta/clients/solicitacao/SolicitacaoResponse.class
 br/com/zupacademy/romulo/proposta/bloqueio/BloqueioController.class
 br/com/zupacademy/romulo/proposta/config/SecurityConfiguration.class
+br/com/zupacademy/romulo/proposta/clients/bloqueiaCartao/BloqueiaRequest.class
 br/com/zupacademy/romulo/proposta/bloqueio/Bloqueio.class
 br/com/zupacademy/romulo/proposta/bloqueio/BloqueioDto.class
 br/com/zupacademy/romulo/proposta/validadores/ValidaBase64.class

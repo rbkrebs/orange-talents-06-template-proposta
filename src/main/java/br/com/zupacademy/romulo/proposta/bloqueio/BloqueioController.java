@@ -1,6 +1,8 @@
 package br.com.zupacademy.romulo.proposta.bloqueio;
 
 
+import br.com.zupacademy.romulo.proposta.clients.bloqueiaCartao.BloqueiaCartao;
+import br.com.zupacademy.romulo.proposta.clients.bloqueiaCartao.BloqueiaRequest;
 import br.com.zupacademy.romulo.proposta.proposta.Proposta;
 import br.com.zupacademy.romulo.proposta.proposta.PropostaRepository;
 import br.com.zupacademy.romulo.proposta.validadores.ApiErroException;
@@ -26,6 +28,9 @@ public class BloqueioController {
     @Autowired
     private PropostaRepository propostaRepository;
 
+    @Autowired
+    private BloqueiaCartao bloqueiaCartao;
+
 
     @PostMapping
     @Transactional
@@ -35,6 +40,12 @@ public class BloqueioController {
         if(existeCartao.isEmpty()){
             throw new ApiErroException(HttpStatus.NOT_FOUND, "Cartão não encontrado");
         }
+        ResponseEntity<?> status = bloqueiaCartao.bloquearCartao(numeroCartao.getNumeroCartao(),
+                                                                new BloqueiaRequest("Sistema de Propostas"));
+        if(!status.getStatusCode().is2xxSuccessful()){
+            throw new ApiErroException(HttpStatus.BAD_REQUEST, "Falha ao tentar bloquear o cartão");
+        }
+
         Bloqueio bloqueio = numeroCartao.toModel(httpServletRequest);
 
         entityManager.persist(bloqueio);

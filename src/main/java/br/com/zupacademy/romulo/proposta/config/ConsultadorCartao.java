@@ -35,8 +35,6 @@ public class ConsultadorCartao {
 
         List<Proposta> listaDePropostas = propostaRepository.findByCondicaoSolicitacaoAndNumeroDoCartao(CondicaoSolicitacao.ELEGIVEL,null);
 
-
-
         listaDePropostas.forEach(proposta ->{
             String idProposta = String.valueOf(proposta.getId());
             try{
