@@ -1,8 +1,6 @@
 package br.com.zupacademy.romulo.proposta.bloqueio;
 
 import br.com.zupacademy.romulo.proposta.validadores.ValorUnico;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
@@ -12,10 +10,9 @@ public class BloqueioDto {
 
     @ValorUnico(entidade = "Bloqueio", atributo = "numeroCartao")
     @NotBlank
-    @JsonProperty
     private String numeroCartao;
 
-    @JsonCreator
+
     public BloqueioDto(@NotBlank String numeroCartao){
         this.numeroCartao = numeroCartao;
     }
