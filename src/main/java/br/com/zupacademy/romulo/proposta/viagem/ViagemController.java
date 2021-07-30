@@ -1,8 +1,16 @@
 package br.com.zupacademy.romulo.proposta.viagem;
 
+import br.com.zupacademy.romulo.proposta.bloqueio.Bloqueio;
+import br.com.zupacademy.romulo.proposta.clients.bloqueiaCartao.BloqueiaRequest;
+import br.com.zupacademy.romulo.proposta.clients.informaViagem.InformaViagem;
+import br.com.zupacademy.romulo.proposta.clients.informaViagem.InformaViagemRequest;
+import br.com.zupacademy.romulo.proposta.config.ConsultadorCartao;
 import br.com.zupacademy.romulo.proposta.proposta.Proposta;
 import br.com.zupacademy.romulo.proposta.proposta.PropostaRepository;
 import br.com.zupacademy.romulo.proposta.validadores.ApiErroException;
+import feign.FeignException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +30,15 @@ import java.util.Optional;
 @Validated
 public class ViagemController {
 
+    private final Logger logger = LoggerFactory.getLogger(ViagemController.class);
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     private PropostaRepository propostaRepository;
+
+    @Autowired
+    private InformaViagem informaViagem;
 
 
     @PostMapping("/{numeroCartao}")
@@ -41,11 +53,20 @@ public class ViagemController {
             throw new ApiErroException(HttpStatus.NOT_FOUND, "Cartão não encontrado");
         }
 
-        Viagem viagem = viagemDto.toModel(httpServletRequest, numeroCartao);
+        try{
 
-        entityManager.persist(viagem);
+            informaViagem.informarViagem(numeroCartao,
+                    new InformaViagemRequest(viagemDto.getDestinoViagem(), viagemDto.getTerminoViagem()));
+            Viagem viagem = viagemDto.toModel(httpServletRequest, numeroCartao);
 
-        return ResponseEntity.ok().build();
+            entityManager.persist(viagem);
+
+            return ResponseEntity.ok().build();
+        }catch (FeignException exception){
+            logger.warn("{}",exception);
+            throw new ApiErroException(HttpStatus.BAD_REQUEST, "Falha ao tentar informar viagem");
+        }
+
 
     }
 }
