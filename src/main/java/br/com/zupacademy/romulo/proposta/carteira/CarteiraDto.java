@@ -21,9 +21,9 @@ public class CarteiraDto {
     private EnumCarteira enumCarteira;
 
     @JsonCreator
-    public CarteiraDto(String email, EnumCarteira enumCarteira) {
+    public CarteiraDto(String email, String enumCarteira) {
         this.email = email;
-        this.enumCarteira = enumCarteira;
+        this.enumCarteira = EnumCarteira.converteEnum(enumCarteira);
     }
 
     public EnumCarteira getEnumCarteira() {

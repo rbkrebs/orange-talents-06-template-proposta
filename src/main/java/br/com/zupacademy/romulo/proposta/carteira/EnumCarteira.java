@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public enum EnumCarteira {
 
-    PAYPAL("PAYPAL");
+    PAYPAL("PAYPAL"), SAMSUNG_PAY("SAMSUNG PAY");;
 
 
     private String servico;
