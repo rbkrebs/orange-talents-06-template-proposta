@@ -25,13 +25,10 @@ public class ErroValidacaoHandler {
     public ResponseEntity<ErroPadronizado> handleBadRequest(MethodArgumentNotValidException exception){
 
         Collection<String> mensagensDeErros = new ArrayList();
-
-
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         fieldErrors.forEach(erro -> {
 
             String mensagem = messageSource.getMessage(erro, LocaleContextHolder.getLocale());
-
             mensagensDeErros.add(mensagem);
 
         });
