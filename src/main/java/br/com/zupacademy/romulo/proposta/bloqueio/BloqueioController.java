@@ -8,6 +8,8 @@ import br.com.zupacademy.romulo.proposta.proposta.PropostaRepository;
 import br.com.zupacademy.romulo.proposta.validadores.ApiErroException;
 import br.com.zupacademy.romulo.proposta.validadores.ValorUnico;
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +38,15 @@ public class BloqueioController {
     private BloqueiaCartao bloqueiaCartao;
 
 
+
     @PostMapping("{numeroCartao}")
     @Transactional
     public ResponseEntity<?> bloqueia(@PathVariable("numeroCartao")
                                           @ValorUnico(entidade = "Bloqueio", atributo = "numeroCartao")
                                           @NotBlank String numeroCartao,
                                       HttpServletRequest httpServletRequest){
+
+
 
         Optional<Proposta> existeCartao = propostaRepository.findByNumeroDoCartao(numeroCartao);
         if(existeCartao.isEmpty()){
