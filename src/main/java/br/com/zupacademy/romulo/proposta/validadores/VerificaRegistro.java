@@ -2,6 +2,7 @@ package br.com.zupacademy.romulo.proposta.validadores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.encrypt.Encryptors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -31,7 +32,7 @@ public class VerificaRegistro implements ConstraintValidator<ExisteRegistro, Str
     public boolean isValid(String atributo, ConstraintValidatorContext constraintValidatorContext) {
 
         Query query = em.createQuery("SELECT s FROM "+this.tabela+" s where "+this.atributo+"= :atributo")
-                .setParameter("atributo",atributo);
+                .setParameter("atributo", Encryptors.queryableText("password", "5c0744940b5c369b").encrypt(atributo));
         if(!query.getResultList().isEmpty()){
             throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Esse requisitante já solicitou uma proposta");
 

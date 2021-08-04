@@ -2,6 +2,9 @@ package br.com.zupacademy.romulo.proposta.proposta;
 
 import br.com.zupacademy.romulo.proposta.clients.solicitacao.CondicaoSolicitacao;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 import javax.persistence.*;
 import javax.sound.sampled.Port;
@@ -9,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 
 @Entity
@@ -53,7 +57,7 @@ public class Proposta {
                     @NotNull @Min(0) BigDecimal salario) {
 
 
-        this.documento = documento;
+        this.documento =  this.criptografar().encrypt(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
@@ -65,7 +69,8 @@ public class Proposta {
     }
 
     public String getDocumento() {
-        return documento;
+
+        return this.criptografar().decrypt(this.documento);
     }
 
     public String getEmail() {
@@ -98,6 +103,11 @@ public class Proposta {
 
     public void setNumeroDoCartao(String numeroDoCartao) {
         this.numeroDoCartao = numeroDoCartao;
+    }
+
+    private TextEncryptor criptografar(){
+
+       return Encryptors.queryableText("password", "5c0744940b5c369b");
     }
 
     @Override
